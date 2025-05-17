@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrontPage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="Index.css">
+</head>
+
+<body>
+    <!--------------------------- Header and Navigation -->
+    <header>
+        <div class="logo-container">
+            <div class="logo-img">
+                <img src="StudLogo.png" alt="DVC Logo" class="logo-image">
+            </div>
+            <div class="logo-text">
+                <h1>DVC Computer Laboratory</h1>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">HOME</a></li>
+                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="" class="login-btn" id="openLoginModal">LOGIN</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--------------------------- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeLoginModal">&times;</span>
+            <div class="login-header">
+                <div class="monitor-icon">
+                    <img src="StudLogo.png" alt="DVC Logo" class="monitor-logo">
+                </div>
+                <h1>Computer Laboratory Monitoring System</h1>
+                <p id="form-title">Please LogIn to access the System</p>
+            </div>
+
+            <div class="form-container">
+                <form id="admin-form" class="login-form active">
+                    <div class="form-group">
+                        <label for="admin-id">Admin ID</label>
+                        <input type="text" id="admin-id" placeholder="Enter Admin ID" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="admin-password">Password</label>
+                        <input type="password" id="admin-password" placeholder="Enter Password" required>
+                    </div>
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="admin-remember">
+                            <label for="admin-remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn login-btn">LOGIN as ADMIN</button>
+                </form>
+
+                <form id="user-form" class="login-form">
+                    <div class="form-group">
+                        <label for="user-id">Email</label>
+                        <input type="text" id="user-id" placeholder="Enter Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="user-password">Password</label>
+                        <input type="password" id="user-password" placeholder="Enter Password" required>
+                    </div>
+                    <div class="remember-forgot">
+                        <div class="remember-me">
+                            <input type="checkbox" id="user-remember">
+                            <label for="user-remember">Remember me</label>
+                        </div>
+                        <a href="#" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn login-btn">LOGIN as USER</button>
+                    <p style="margin: 15px 0; color: #343333;">Don't have an account yet?</p>
+                    <button type="button" id="show-register" class="btn register-btn">REGISTER NEW ACCOUNT</button>
+                </form>
+
+                <div class="switch-tabs">
+                    <button id="switch-to-user" class="switch-btn">Login as User instead</button>
+                    <button id="switch-to-admin" class="switch-btn" style="display: none;">Login as Admin
+                        instead</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--------------------------- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Welcome to Davao Vision College Computer Laboratory</h1>
+            <p>"Empowering students through technology and innovation in a state-of-the-art learning environment."</p>
+            <button class="register-btn1" id="openRegisterModal">REGISTER NOW</button>
+        </div>
+
+        <div class="modal" id="registerModal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeRegisterModal">&times;</span>
+                <div class="monitor-icon">
+                    <img src="StudLogo.png" alt="DVC Logo" class="monitor-logo">
+                    <h1>Computer Laboratory Monitoring System</h1>
+                    <p>Register now to access the System</p>
+                </div>
+
+                <form id="register-form" class="register-form">
+                    <div class="name-fields">
+                        <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" placeholder="Enter First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" placeholder="Enter Last Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="middle-name">Middle Name (Optional)</label>
+                        <input type="text" id="middle-name" placeholder="Enter Middle Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Course</label>
+                        <select id="course" required>
+                            <option value="" disabled selected>Select your course</option>
+                            <option value="BSIT">BS Information Technology</option>
+                            <option value="THEOLOGY">Theology</option>
+                            <option value="BEED">BE Elementary Education</option>
+                            <option value="BSED">BS Secondary Education</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year-level">Year Level</label>
+                        <select id="year-level" required>
+                            <option value="" disabled selected>Select year level</option>
+                            <option value="1st">1st Year</option>
+                            <option value="2nd">2nd Year</option>
+                            <option value="3rd">3rd Year</option>
+                            <option value="4th">4th Year</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" min="16" max="60" placeholder="Enter your age" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" required>
+                            <option value="" disabled selected>Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Enter phone number" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="Enter email address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="Create password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" placeholder="Confirm password" required>
+                    </div>
+                    <button type="submit" class="btn login-btn">REGISTER ACCOUNT</button>
+                    <div class="back-to-login">
+                        <button type="button" id="back-to-login" class="switch-btn">Back to Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!--------------------------------------------------- About Section ------------------------------>
+    <section class="about" id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-content">
+            <div class="about-image">
+                <img src="abt.png" alt="Computer Lab">
+            </div>
+            <div class="about-text">
+                <h3>Our Computer Laboratory</h3>
+                <p>The Davao Vision College Computer Laboratory is a modern, technology-driven space designed to support
+                    student success through innovation and digital excellence. This monitoring system provides real-time
+                    insights into laboratory usage, computer activity, and user engagement—ensuring a productive and
+                    well-managed learning environment. </p>
+                    <p> Equipped with up-to-date resources and reliable computing infrastructure, our lab empowers students
+                    to gain hands-on experience in programming, design, research, and collaboration. With a focus on
+                    safety, efficiency, and digital growth, the DVC Computer Laboratory plays a key role in preparing
+                    learners for the demands of today’s fast-paced, tech-driven world.</p>
+            </div>
+        </div>
+        <div class="mission-vision">
+            <div class="mission">
+                <h3><i class="fas fa-bullseye"></i> Mission</h3>
+                <p>To provide students with innovative tools and a conducive environment for learning, fostering
+                    creativity and excellence through advanced technological facilities.</p>
+            </div>
+            <div class="vision">
+                <h3><i class="fas fa-eye"></i> Vision</h3>
+                <p>To be a leading institution in providing a world-class computer laboratory that supports students in
+                    achieving their educational and professional goals.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-------------------------------------------------- Features Section ------------------------------->
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2 class="section-title">Our Features</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-desktop"></i>
+                    <h3>Modern Equipment</h3>
+                    <p>Our lab is equipped with the latest computer models and peripherals to ensure students have
+                        access to cutting-edge technology.</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-wifi"></i>
+                    <h3>High-Speed Internet</h3>
+                    <p>Reliable and fast internet connectivity to support online research, learning, and collaboration.
+                    </p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-lock"></i>
+                    <h3>Secure Environment</h3>
+                    <p>Ensuring the safety and security of students and equipment through advanced monitoring systems.
+                    </p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-tools"></i>
+                    <h3>Technical Support</h3>
+                    <p>A dedicated support team is always available to assist students with any technical issues.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--------------------------------------------------- Footer --------------------------------->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>DVC Computer Lab</h3>
+                <p>Davao Vision College</p>
+                <p>Stone Rock Village</p>
+                <p>Davao City, Philippines</p>
+            </div>
+            <div class="footer-col">
+                <h3>Contact Info</h3>
+                <p><i class="fas fa-phone"></i> (082) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> computerlab@dvc.edu.ph</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Operating Hours</h3>
+                <p>Monday - Friday: 8:00 AM - 8:00 PM</p>
+                <p>Saturday: 9:00 AM - 5:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 DVC Computer Laboratory Monitoring System. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+<script src="Index.js"></script>
+
+</html>

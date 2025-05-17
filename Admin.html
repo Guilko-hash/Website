@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | ComputerLab Monitoring System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="Admin.css">
+</head>
+
+<body>
+    <!--------------------------------------------------Header ----------------------->
+    <header class="header">
+        <div class="logo-container">
+            <i class="fas fa-laptop-code logo-icon"></i>
+            <span class="logo-text">ComputerLab Monitoring System</span>
+        </div>
+
+        <div class="header-actions">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+
+            <div class="user-profile" id="userProfile">
+                <img src="/img/BG-Log.jpg" alt="User" class="user-avatar">
+                <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+                    <button id="logoutBtn" class="dropdown-item">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!------------------------------------------------- Sidebar ---------------------------------->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-profile">
+            <img src="/img/BG-Log.jpg" alt="User" class="sidebar-avatar">
+            <h3 class="sidebar-username">John Doe</h3>
+            <span class="sidebar-role">Administrator</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <!-- Dashboard -->
+            <div class="menu-item active">
+                <i class="fas fa-tachometer-alt menu-icon"></i>
+                <span class="menu-text">Dashboard</span>
+            </div>
+
+            <!-- Computer -->
+            <div class="menu-item">
+                <i class="fas fa-desktop menu-icon"></i>
+                <span class="menu-text">Computer</span>
+            </div>
+
+            <!-- Users -->
+            <div class="menu-item">
+                <i class="fas fa-users menu-icon"></i>
+                <span class="menu-text">Users</span>
+            </div>
+
+            <!-- Report & Analytical -->
+            <div class="menu-item">
+                <i class="fas fa-chart-bar menu-icon"></i>
+                <span class="menu-text">Report & Analytical</span>
+            </div>
+        </div>
+    </aside>
+
+    <!------------------------------------------------ -Main Content ----------------------------->
+    <main class="main-content">
+        <section id="dashboard-section" class="content-section">
+            <div class="page-header">
+                <h1 class="page-title">Dashboard Overview</h1>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-title">Total Computers</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="total-computers">48</div>
+                </div><div class="stat-card">
+    <div class="stat-card-header">
+        <span class="stat-title">Total Registered</span>
+        <div class="stat-icon">
+            <i class="fas fa-user-plus"></i>
+        </div>
+    </div>
+    <div class="stat-value" id="total-registered">0</div>
+</div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-title">Available Computers</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="available-computers">32</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-title">Under Maintenance</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="under-maintenance">4</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <span class="stat-title">Out of Order</span>
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value" id="out-of-order">2</div>
+                </div>
+            </div>
+
+            <div class="charts-grid">
+                <!-- Computer Status Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Computer Status Overview</h3>
+                        <p class="chart-subtitle">Overview of computer statuses in the lab</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="computerStatusChart"></canvas>
+                    </div>
+                </div>
+            
+                <!-- Data Registration Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Data Registration</h3>
+                        <p class="chart-subtitle">Monthly registration data overview</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="registrationLineChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-container">
+                <div class="column-left">
+                    <div class="panel">
+                        <div class="headers">
+                            <h3>Computer Requests</h3>
+                            <span class="btn"><i class="fas fa-bell"></i> 3 New</span>
+                        </div>
+                        <div>
+                            <div class="request">
+                                <div class="request-icon yellow"><i class="fas fa-laptop"></i></div>
+                                <div class="request-content">
+                                    <h4>Lab 2 - WS07</h4>
+                                    <p>2 hours session</p>
+                                    <div class="meta"><i class="far fa-calendar-alt"></i> Today, 3:00 PM</div>
+                                    <div class="request-actions">
+                                        <span class="status">Pending</span>
+                                        <div class="actions">
+                                            <button class="btn approve"><i class="fas fa-check"></i> Approve</button>
+                                            <button class="btn deny"><i class="fas fa-times"></i> Deny</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column-right">
+                    <div class="panel">
+                        <div class="headers">
+                            <h3>Recent Activities</h3>
+                            <div>
+                                <button class="btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="activity">
+                                <div class="activity-icon blue"><i class="fas fa-user-clock"></i></div>
+                                <div class="activity-content">
+                                    <h4>User Session Started</h4>
+                                    <p>John Doe logged into Lab 1 - WS05</p>
+                                    <div class="meta"><i class="fas fa-desktop"></i> Windows 10 | Chrome 114</div>
+                                </div>
+                            </div>
+                            <div class="activity">
+                                <div class="activity-icon green"><i class="fas fa-print"></i></div>
+                                <div class="activity-content">
+                                    <h4>Print Job Completed</h4>
+                                    <p>Sarah Johnson printed 3 pages</p>
+                                    <div class="meta"><i class="fas fa-file-pdf"></i> research_paper.pdf | Printer
+                                        Lab1-01</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!-------------------------------------------------- Computer Section ---------------------------------------------- -->
+        <section id="computer-section" class="content-section" style="display: none;">
+    <div class="page-header">
+        <h1 class="page-title">Computer Management</h1>
+    </div>
+    <div class="container">
+        <div class="header1">
+            <div class="actions1">
+                <button id="addComputerBtn"><i class="fas fa-plus"></i> Add Computer</button>
+            </div>
+            <div class="room-dropdown">
+                <label for="roomSelect">Room:</label>
+                <select id="roomSelect" class="filter-dropdown">
+                    <option value="A">Room A</option>
+                    <option value="B">Room B</option>
+                </select>
+            </div>
+        </div>
+        <div class="search-filter">
+            <input type="text" id="searchComputer" placeholder="Search computer (e.g., PC-001)..." class="search-bar">
+            <button class="btn" id="searchBtn"><i class="fas fa-search"></i> Search</button>
+        </div>
+        <div class="table-container">
+            <table id="computer-table">
+                <thead>
+                    <tr>
+                        <th>COMPUTER</th>
+                        <th>ROOM</th>
+                        <th>STATUS</th>
+                        <th>CURRENT USER</th>
+                        <th>LAST ACTIVITY</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody id="computer-table-body">
+                    <!-- Dynamic rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+        <!-- Add Computer Modal -->
+        <div id="addComputerModal" class="modal">
+            <div class="modal-content">
+                <h2>Add Computer</h2>
+                <form id="addComputerForm">
+                    <label for="pcNumber">PC Number:</label>
+                    <input type="number" id="pcNumber" min="1" step="1" required>
+                    <label for="room">Room:</label>
+                    <select id="room" required>
+                        <option value="A">Room A</option>
+                        <option value="B">Room B</option>
+                    </select>
+                    <label for="status">Status:</label>
+                    <select id="status" required>
+                        <option value="Available">Available</option>
+                        <option value="In Use">In Use</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Out of Order">Out of Order</option>
+                    </select>
+                    <button type="submit">Add</button>
+                    <button type="button" id="closeModalBtn">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+        <!-------------------------------------------------- Users Section ---------------------------------------------- -->
+        <section id="users-section" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">User Management</h1>
+            </div>
+            <div class="content">
+                <div class="table-header" style="display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-weight: bold; font-size: 1.2em;">Registered Users</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <input type="text" id="searchUser" placeholder="Search by name or course..." class="search-bar" style="width: 800px;">
+                        <button class="btn"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>USER ID</th>
+                                <th>NAME</th>
+                                <th>COURSE</th>
+                                <th>EMAIL</th>
+                                <th>LAST LOGIN</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="user-table-body">
+                            <!-- Dynamic rows will be rendered by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-------------------------------------------------- Report & Analytical Section ---------------------------------------------- -->
+        <section id="report-section" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Report & Analytical</h1>
+            </div>
+            <div class="content">
+                <div class="stat-cards">
+                    <div class="stat-card2">
+                        <div class="content">
+                            <h3>Total Reports</h3>
+                            <div class="value">120</div>
+                            <div class="description">Generated this month</div>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card2 green">
+                        <div class="content">
+                            <h3>Resolved Issues</h3>
+                            <div class="value">95</div>
+                            <div class="description">Resolved successfully</div>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card2 yellow">
+                        <div class="content">
+                            <h3>Pending Issues</h3>
+                            <div class="value">25</div>
+                            <div class="description">Awaiting resolution</div>
+                        </div>
+                        <div class="icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="content">
+                    <div class="report-container">
+                        <div class="report-recent-issues-header">
+                            <h1>Recent Issues</h1>
+                        </div>
+
+                        <div class="report-table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Computer</th>
+                                        <th>Issue Type</th>
+                                        <th>Reported By</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2025-05-10</td>
+                                        <td>Lab 2 - WS12</td>
+                                        <td><span class="report-status unresolved">Hardware</span></td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" alt="John Doe"
+                                                class="report-avatar">
+                                            John Doe
+                                        </td>
+                                        <td><span class="report-status pending">Pending</span></td>
+                                        <td class="report-actions">
+                                            <button title="View Issue"><i class="fas fa-eye"></i></button>
+                                            <button title="Resolve Issue"><i class="fas fa-check"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-09</td>
+                                        <td>Lab 1 - WS8</td>
+                                        <td><span class="report-status resolved">Software</span></td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" alt="Jane Smith"
+                                                class="report-avatar">
+                                            Jane Smith
+                                        </td>
+                                        <td><span class="report-status resolved">Resolved</span></td>
+                                        <td class="report-actions">
+                                            <button title="View Issue"><i class="fas fa-eye"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2025-05-08</td>
+                                        <td>Lab 3 - WS5</td>
+                                        <td><span class="report-status unresolved">Network</span></td>
+                                        <td>
+                                            <img src="https://via.placeholder.com/32" alt="Michael Brown"
+                                                class="report-avatar">
+                                            Michael Brown
+                                        </td>
+                                        <td><span class="report-status pending">Pending</span></td>
+                                        <td class="report-actions">
+                                            <button title="View Issue"><i class="fas fa-eye"></i></button>
+                                            <button title="Resolve Issue"><i class="fas fa-check"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+        </section>
+    </main>
+
+</body>
+<script src="Admin.js"></script>
+<script src="Adser.js"></script>
+
+</html>

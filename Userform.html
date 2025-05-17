@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard | ComputerLab Monitoring System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="userfo.css">
+</head>
+
+<body>
+    <!--------------------------------------------------Header ----------------------->
+    <header class="header">
+        <div class="logo-container">
+            <i class="fas fa-laptop-code logo-icon"></i>
+            <span class="logo-text">ComputerLab Monitoring System</span>
+        </div>
+
+        <div class="header-actions">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </div>
+
+            <div class="user-profile" id="userProfile">
+                <img src="/img/BG-Log.jpg" alt="User" class="user-avatar">
+                <div class="dropdown-menu" id="dropdownMenu" style="display: none;">
+                    <button id="myProfileBtn" class="dropdown-item">My Profile</button>
+                    <button id="logoutBtn" class="dropdown-item">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!------------------------------------------------- Sidebar ---------------------------------->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-profile">
+            <img src="/img/BG-Log.jpg" alt="User" class="sidebar-avatar">
+            <h3 class="sidebar-username">John Doe</h3>
+            <span class="sidebar-role">Student</span>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="menu-item active">
+                <i class="fas fa-tachometer-alt menu-icon"></i>
+                <span class="menu-text">Dashboard</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-user menu-icon"></i>
+                <span class="menu-text">My Profile</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-history menu-icon"></i>
+                <span class="menu-text"> History</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-headset menu-icon"></i>
+                <span class="menu-text">Contact Support</span>
+            </div>
+        </div>
+    </aside>
+
+    <!------------------------------------------------ -Main Content ----------------------------->
+    <main class="main-content">
+        <section id="dashboard-section" class="content-section">
+    <div class="page-header">
+        <h1 class="page-title">Dashboard Overview</h1>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span class="stat-title">Total Computers</span>
+                <div class="stat-icon">
+                    <i class="fas fa-desktop"></i>
+                </div>
+            </div>
+            <div class="stat-value" id="total-computers">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span class="stat-title">Available Computers</span>
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+            </div>
+            <div class="stat-value" id="available-computers">0</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span class="stat-title">Current Status</span>
+                <div class="stat-icon">
+                    <i class="fas fa-user" id="current-status-icon" style="color:gray"></i>
+                </div>
+            </div>
+            <div class="stat-value" id="current-status-text">Inactive</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span class="stat-title">Your Usage</span>
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+            </div>
+            <div class="stat-value" id="your-usage">0 hrs</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card-header">
+                <span class="stat-title">Laboratory Status</span>
+                <div class="stat-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+            </div>
+            <div class="stat-value">Operational</div>
+            <div class="stat-change positive">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- Current Session -->
+    <div class="card">
+        <div class="card-header">
+            <h2>Current Session</h2>
+            <div class="session-actions">
+                <button id="end-session-btn" class="end-session-btn">End Session</button>
+                <button id="extend-session-btn" class="extend-session-btn">Extend Session</button>
+            </div>
+        </div>
+        <div class="session-details">
+            <div class="session-detail">
+                <h4>Computer</h4>
+                <p id="current-pc">---------</p>
+            </div>
+            <div class="session-detail">
+                <h4>Room</h4>
+                <p id="current-room">---------</p>
+            </div>
+            <div class="session-detail">
+                <h4>Duration</h4>
+                <p id="session-duration">---------</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Computer Status Section -->
+    <div class="status-section">
+        <div class="section-header">
+            <h2 class="section-title">Computer Status</h2>
+            <div class="section-actions">
+                <button class="btn btn-primary" id="refresh-btn"><i class="fas fa-sync"></i> Refresh</button>
+                <button class="btn btn-success" id="use-computer-btn"><i class="fas fa-desktop"></i> Use Computer</button>
+            </div>
+
+            <!-- Modal for Using Computer -->
+            <div id="use-computer-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-btn" id="close-modal">&times;</span>
+                    <h2>Use Computer</h2>
+                    <form id="use-computer-form">
+                        <div class="form-group">
+                            <label for="room">Room</label>
+                            <select id="room" required>
+                                <option value="Room A">Room A</option>
+                                <option value="Room B">Room B</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pc">PC</label>
+                            <select id="pc" required>
+                                <option value="PC-001">PC-001</option>
+                                <option value="PC-002">PC-002</option>
+                                <option value="PC-003">PC-003</option>
+                                <option value="PC-004">PC-004</option>
+                                <option value="PC-005">PC-005</option>
+                                <option value="PC-006">PC-006</option>
+                                <option value="PC-007">PC-007</option>
+                                <option value="PC-008">PC-008</option>
+                                <option value="PC-009">PC-009</option>
+                                <option value="PC-010">PC-010</option>
+                                <option value="PC-011">PC-011</option>
+                                <option value="PC-012">PC-012</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Duration</label>
+                            <input type="number" id="duration" placeholder="Enter duration" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Start Session</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room Status Grids (EMPTY for JS to fill) -->
+        <div class="room" data-room="A">
+            <h3 class="room-title">Room A</h3>
+            <div class="status-grid"></div>
+        </div>
+        <div class="room" data-room="B">
+            <h3 class="room-title">Room B</h3>
+            <div class="status-grid"></div>
+        </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="calendar-container">
+        <div class="calendar">
+            <div class="calendar-header">
+                <button id="prevMonthBtn">&lt; Previous</button>
+                <h2 id="monthYear">May 2025</h2>
+                <button id="nextMonthBtn">Next &gt;</button>
+            </div>
+            <div class="calendar-days">
+                <div class="calendar-day-header">SUN</div>
+                <div class="calendar-day-header">MON</div>
+                <div class="calendar-day-header">TUE</div>
+                <div class="calendar-day-header">WED</div>
+                <div class="calendar-day-header">THU</div>
+                <div class="calendar-day-header">FRI</div>
+                <div class="calendar-day-header">SAT</div>
+            </div>
+            <div class="calendar-days" id="daysContainer"></div>
+        </div>
+    </div>
+</section>
+
+        <!-------------------------------------------------- Profile Section---------------------------------------------- -->
+
+        <section id="profile-section" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">My Profile</h1>
+            </div>
+            <div class="profile-container">
+                <div class="profile-sidebar">
+                    <img src="/img/BG-Log.jpg" alt="User Icon">
+                    <h2>Guil Emmee</h2>
+                    <p>Engineering Student</p>
+                    <button id="edit-profile-btn">Edit Profile</button>
+                    <button id="change-password-btn">Change Password</button>
+                </div>
+
+                <div class="profile-info">
+                    <h3>Profile Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="label">First Name</span>
+                            <span class="value" id="first-name">Guil</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Last Name</span>
+                            <span class="value" id="last-name">Emmeee</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Middle Name</span>
+                            <span class="value" id="middle-name">Dammp</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Date of Birth</span>
+                            <span class="value" id="dob">05-05-1994</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Gender</span>
+                            <span class="value" id="gender">Male</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Age</span>
+                            <span class="value" id="age">20 years old</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">ID Number</span>
+                            <span class="value" id="id-number">2023010456</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Course</span>
+                            <span class="value" id="course">Engineering</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Year Level</span>
+                            <span class="value" id="year-level">III</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Address</span>
+                            <span class="value" id="address">Pusong Sinaktan</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Phone Number</span>
+                            <span class="value" id="phone">09456721622</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="label">Email</span>
+                            <span class="value" id="email">makabuang@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="edit-profile-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-btn" id="close-edit-profile">&times;</span>
+                    <h2>Edit Profile</h2>
+                    <form id="edit-profile-form">
+                        <div class="form-group">
+                            <label for="edit-first-name">First Name</label>
+                            <input type="text" id="edit-first-name" value="Jhon" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-last-name">Last Name</label>
+                            <input type="text" id="edit-last-name" value="Smith" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-middle-name">Middle Name</label>
+                            <input type="text" id="edit-middle-name" value="Dammp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-phone">Phone Number</label>
+                            <input type="text" id="edit-phone" value="09456721622" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-email">Email</label>
+                            <input type="email" id="edit-email" value="smith@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="edit-profile-picture">Profile Picture</label>
+                            <input type="file" id="edit-profile-picture" accept="image/*">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Changes</button>
+                            <button type="button" class="btn-secondary" id="cancel-edit-profile">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="change-password-modal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <span class="close-btn" id="close-change-password">&times;</span>
+                    <h2>Change Password</h2>
+                    <form id="change-password-form">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Change Password</button>
+                            <button type="button" class="btn-secondary" id="cancel-change-password">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
+        <!------------------------------------------------------- Usage History Section---------------------------------------------- -->
+
+        <section id="history-section" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">History</h1>
+            </div>
+            <div class="usage-history-container">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search by Computer ID, Room or Date..."
+                        onkeyup="filterTable()">
+                    <button onclick="filterTable()">Search</button>
+                </div>
+                <table id="usageTable">
+                    <thead>
+                        <tr>
+                            <th>Computer ID</th>
+                            <th>Room</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>PC-001</td>
+                            <td>Room A</td>
+                            <td>10:00 AM</td>
+                            <td>12:00 PM</td>
+                            <td>2025-05-10</td>
+                        </tr>
+                        <tr>
+                            <td>PC-002</td>
+                            <td>Room B</td>
+                            <td>01:00 PM</td>
+                            <td>03:00 PM</td>
+                            <td>2025-05-11</td>
+                        </tr>
+                        <tr>
+                            <td>PC-003</td>
+                            <td>Room B</td>
+                            <td>09:00 AM</td>
+                            <td>11:00 AM</td>
+                            <td>2025-05-11</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="no-history" id="noHistoryMessage" style="display: none;">No usage history available.</div>
+            </div>
+        </section>
+
+        <!------------------------------------------------------- Contact Support  Section---------------------------------------------- -->
+        <section id="support-section" class="content-section" style="display: none;">
+            <div class="page-header">
+                <h1 class="page-title">Contact Support</h1>
+            </div>
+
+            <div class="container">
+                <div class="support-cards">
+                    <div class="support-card">
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                        <h3>Phone Support</h3>
+                        <p>Call us directly for immediate assistance during working hours.</p>
+                        <p class="contact-info"><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                        <p class="text-muted">Mon-Fri, 9:00 AM - 5:00 PM</p>
+                    </div>
+                    <div class="support-card">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <h3>Email Support</h3>
+                        <p>Send us an email and we'll get back to you within 24 hours.</p>
+                        <p class="contact-info"><i class="fas fa-envelope"></i> support@labmonitor.edu</p>
+                        <p class="text-muted">Response within 24 hours</p>
+                    </div>
+                    <div class="support-card">
+                        <div class="icon"><i class="fas fa-comments"></i></div>
+                        <h3>Live Chat</h3>
+                        <p>Chat with our support team in real-time during business hours.</p>
+                        <button class="live-chat-btn"><i class="fas fa-comment-dots"></i> Start Live Chat</button>
+                        <p class="text-muted">Available Mon-Fri, 9:00 AM - 5:00 PM</p>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <h2>Send us a message</h2>
+                    <form id="contactForm">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Your name" required>
+
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+
+                        <label for="subject">Subject</label>
+                        <select id="subject" required>
+                            <option value="" disabled selected>Select a subject</option>
+                            <option value="Technical Support">Technical Support</option>
+                            <option value="Account Issues">Account Issues</option>
+                            <option value="Lab Equipment">Lab Equipment</option>
+                            <option value="Feedback">Feedback</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" placeholder="Describe your issue or question..."
+                            required></textarea>
+
+                        <div class="form-actions">
+                            <div class="urgent">
+                                <input type="checkbox" id="urgent">
+                                <label for="urgent">Mark as urgent</label>
+                            </div>
+                            <button type="submit"><i class="fas fa-paper-plane"></i> Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+<script src="userfo.js"></script>
+<script src="Adser.js"></script>
+
+</html>
